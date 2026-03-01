@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Gabarito:wght@400..900&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --primary-color: #FCE73C;
+  --secondary-color: #5E89E8;
+  --font-main: 'Gabarito', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --bg-dark: #E6E6E6;
+  --bg: #F2F2F2;
+  --bg-light: #FFFFFF;
+  --text: #0D0D0D;
+  --text-muted: #4D4D4D;
+  --border: #4D4D4D;
+  --success-state: #3DC246;
+  --error-state: #E25050;
+  --pending-state: #5079E2;
+  --button-hover: #4D4D4D;
+  --modal-bg: rgba(0, 0, 0, 0.5);
+  --card-shadow: 
+    0 1px 2px rgba(0,0,0,0.1),
+    0 4px 8px rgba(0,0,0,0.08);
+  --header-shadow:
+    0 1px 2px rgba(0,0,0,0.1),
+    0 2px 4px rgba(0,0,0,0.08);
+}
+
+html, body {
+  font-family: var(--font-main);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.dark {
+  --primary-color: #FCE73C;
+  --secondary-color: #5E89E8;
+  --bg-dark: #000000;
+  --bg: #0D0D0D;
+  --bg-light: #1A1A1A;
+  --text: #F2F2F2;
+  --text-muted: #B2B2B2;
+  --border: #4D4D4D;
+  --success-state: #98EE9E;
+  --error-state: #EE9898;
+  --pending-state: #CCD9FA;
+  --button-hover: #F2F2F2;
+  --modal-bg: rgba(255, 255, 255, 0.1);
+  --card-shadow:
+    0 0 0 2px rgba(255,255,255,0.06),
+    0 4px 8px rgba(255,255,255,0.09);
+  --header-shadow:
+    0 0 0 1px rgba(255,255,255,0.08),
+    0 4px 4px rgba(255,255,255,0.05);
+}
+

@@ -1,0 +1,767 @@
+/* --------------- Global App Styles --------------- */
+.app {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  max-height: 100vh;
+}
+.main {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; 
+  max-width: 1304px;
+  width: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+}
+
+/* Buttons */
+button:not(.close-button, .edit-button, [type="submit"]):hover {
+  box-shadow: 0 4px 0 0 var(--button-hover);
+}
+button.close-button:hover {
+  background: var(--bg-dark);
+}
+button.close-button:hover svg path {
+  fill: var(--text-muted);
+}
+button.close-button {
+  display: flex;
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+  align-items: center;
+  gap: 10px;
+  aspect-ratio: 1/1;
+  border-radius: 9999px;
+  background: var(--bg);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* --------------- Header --------------- */
+header.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  background: var(--bg-light);
+  position: sticky;
+  box-shadow: var(--header-shadow);
+}
+header.header h1 {
+  color: var(--text);
+  font-size: 36px;
+  font-weight: 700;
+}
+header .buttons {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+header .buttons .add-event-button {
+  display: flex;
+  padding: 8px 16px;
+  align-items: center;
+  border-radius: 8px;
+  background: var(--primary-color);
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+header .buttons .theme-mode-button {
+  width: 36px;
+  height: 36px;
+  padding: 5px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+header .buttons .theme-mode-button svg {
+  fill: var(--text);
+}
+
+/* --------------- Main Part --------------- */
+/* NewEventModal Component */
+.event-modal-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--modal-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+.event-modal {
+  display: inline-flex;
+  padding: 32px 24px 24px 24px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 28px;
+  background: var(--bg-light);
+  box-shadow: var(--card-shadow);
+  width: 100%;
+  max-width: 500px;  
+  border-radius: 24px;
+  position: relative;
+}
+.event-modal h2 {
+  overflow: hidden;
+  color: var(--text);
+  font-size: 32px;
+  font-weight: 400;
+}
+.event-modal .close-button {
+  position: absolute;
+  right: 16px;
+  top: 16px;
+}
+form.event {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+  width: 100%;
+}
+form.event .top {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+  align-self: stretch;
+}
+form.event .bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+  align-self: stretch;
+}
+form.event .bottom .row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+form.event .bottom .row .date-time {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 12px;
+}
+form.event .bottom .row .date-time .date-time-inputs {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+form.event .bottom button {
+  display: flex;
+  padding: 12px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  align-self: stretch;
+  border-radius: 8px;
+  background: var(--secondary-color);
+  overflow: hidden;
+  color: var(--bg-light);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+form.event .event-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  align-self: stretch;
+  border-radius: 12px;
+  border: 1px solid var(--bg-dark);
+  background: var(--bg);
+  position: relative;
+}
+form.event input {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 16px;
+  padding: 10px 10px 10px 0;
+  overflow: hidden;
+  color: var(--text);
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+form.event .field {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  align-self: stretch;
+}
+label {
+  color: var(--text-muted);
+  font-size: 16px;
+  overflow: hidden;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 400;
+}
+form.event .event-field.event-status {
+  border: 1px solid var(--border);
+  background: var(--bg-light);
+  border-radius: 20px;
+  position: relative;
+}
+form.event div:not(.event-status) svg {
+  color: var(--text-muted);
+  margin-left: 12px;
+}
+form.event div.event-status svg {
+  position: absolute;
+  right: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text);
+  pointer-events: none;
+}
+form.event select {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 400;
+  padding: 11.5px 34px 11.5px 16px;
+  z-index: 2;
+}
+::placeholder {
+  color: var(--text-muted);
+}
+input[type="date"],
+input[type="time"] {
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+}
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  display: none;
+}
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+form.event input[type="text"], 
+form.event input[type="location"] {
+  flex: 1 1 0;
+}
+/* Search Bar*/
+.search-bar {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 16px;
+  margin-top: 48px;
+  margin-bottom: 24px;
+  margin-left: 4px;
+  padding-right: 14px;
+}
+.search {
+  display: flex;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  flex: 1 0 0;
+  border-radius: 20px;
+  background: var(--bg-light);
+  box-shadow: var(--card-shadow);
+  border: none;
+}
+.search input {
+  padding: 8.5px 16px 8.5px 0;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: normal;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 400;
+  width: 100%;
+}
+.search .field {
+  display: flex;
+  align-items: center;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  gap: 8px;
+  flex: 1 0 0;
+}
+.search .field svg {
+  color: var(--text-muted);
+  margin-left: 16px;
+}
+.filters {
+  display: flex;
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  background: var(--bg-light);
+  box-shadow: var(--card-shadow);
+  color: var(--secondary-color);
+  overflow: hidden;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 12px;
+  position: relative;
+  gap: 0;
+  max-width: 100%;
+  width: fit-content;
+  margin: 0 auto;
+}
+.filters ul {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 0;
+  max-width: 0;
+  opacity: 0;
+  overflow: hidden;
+  margin-right: 0;
+  transition: all 0.3s ease;
+}
+.filters ul.filter-list.expanded {
+  max-width: calc(100vw - 100px);
+  opacity: 1;
+  width: auto;
+  margin-right: 16px;
+}
+.filters ul li {
+  display: flex;
+  padding: 12px 12px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  border-radius: 12px;
+  border: 1px solid var(--secondary-color);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.filters ul li:hover {
+  background: var(--secondary-color);
+  color: var(--bg-light);
+  opacity: 0.8;
+}
+.filters ul li.active {
+  background: var(--secondary-color);
+  color: var(--bg-light);
+}
+button.filter-button {
+  display: flex;
+  padding: 8px 12px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  border-radius: 12px;
+  background: var(--secondary-color);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+button.filter-button.expanded {
+  background: var(--bg-dark);
+  padding: 8px 4px;
+}
+button.filter-button svg {
+  color: var(--bg-light);
+  transition: all 0.3s ease;
+}
+button.filter-button.expanded svg {
+  color: var(--text-muted);
+}
+/* Event List Component */
+.event-list-wrapper {
+  flex: 1;
+  overflow-y: auto; 
+  min-height: 0;
+  padding: 2px 10px 10px 4px; 
+  margin: 0 auto;
+  margin-bottom: 16px;
+  width: 100%;
+  border-radius: 8px;
+  scroll-padding-top: 2px;
+}
+.event-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto;
+  gap: 20px;
+}
+/* Scrollbar */
+.event-list-wrapper::-webkit-scrollbar {
+  width: 8px;
+}
+.event-list-wrapper::-webkit-scrollbar-track {
+  background: var(--bg-dark);
+  border-radius: 4px;
+  margin-top: 2px;
+}
+.event-list-wrapper::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+.event-list-wrapper::-webkit-scrollbar-thumb:hover {
+  background: var(--text);
+}
+/* Event List Item */
+.event-list-item {
+  display: flex;
+  width: 100%;
+  padding: 20px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  border-radius: 20px;
+  background: var(--bg-light);
+  box-shadow: var(--card-shadow);
+  position: relative;
+}
+.event-list-item .title {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 12px;
+  align-self: stretch;
+  position: relative;
+}
+.event-list-item .title h3 {
+  overflow: hidden;
+  color: var(--text);
+  leading-trim: both;
+  text-edge: cap;
+  text-overflow: ellipsis;
+  font-size: 36px;
+  font-weight: 400;
+}
+.event-list-item .title button.close-button {
+  position: absolute;
+  right: -4px;
+  top: -8px;
+}
+.event-list-item button.edit-button {
+  position: absolute;
+  right: 16px;
+  bottom: 12px;
+  display: flex;
+  width: 28px;
+  height: 28px;
+  padding: 2px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 9999px;
+  background: var(--bg-light);
+  color: var(--text-muted);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.event-list-item button.edit-button:hover {
+  background: var(--bg-dark);
+}
+.event-list-item button.edit-button:hover svg path {
+  fill: var(--text);
+}
+/* Status badge */
+.event-list-item .title .status-badge {
+  display: flex;
+  align-items: center;
+  padding: 2px 8px;
+  gap: 4px;
+  border-radius: 8px;
+  leading-trim: both;
+  text-edge: cap;
+  font-size: 14px;
+  font-weight: 400;
+}
+.event-list-item .title .status-badge.planned {
+  border: 1px solid var(--pending-state);
+  color: var(--pending-state);
+}
+.event-list-item .title .status-badge.planned svg {
+  color: var(--pending-state);
+}
+.event-list-item .title .status-badge.canceled {
+  border: 1px solid var(--error-state);
+  color: var(--error-state);
+}
+.event-list-item .title .status-badge.canceled svg {
+  color: var(--error-state);
+}
+.event-list-item .title .status-badge.completed {
+  border: 1px solid var(--success-state);
+  color: var(--success-state);
+}
+.event-list-item .title .status-badge.completed svg {
+  color: var(--success-state);
+}
+/* Event Details */
+.event-list-item .list {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 8px;
+  align-self: stretch;
+}
+.event-list-item .list .event-detail {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-muted);
+}
+.event-list-item .list .event-detail p {
+  color: var(--text-muted);
+  font-size: 18px;
+}
+.event-list-item .list .date-time {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* --------------- Footer --------------- */
+footer.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  background: var(--bg-dark);
+  color: var(--text-muted);
+}
+
+/* --------------- Responsive Design --------------- */
+@media (min-width: 1745px) {
+  header.header {
+    padding: 16px 15%;
+  }
+}
+@media (max-width: 1200px) {
+  form.event {
+    flex-wrap: wrap;
+    justify-content: end;
+  }
+}
+@media (max-width: 1024px) {
+  .event-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .filters ul.filter-list.expanded {
+    scrollbar-width: none; 
+  }
+  .filters ul.filter-list.expanded::-webkit-scrollbar {
+    display: none;
+  }
+  .filters ul.filter-list.expanded:hover,
+  .filters ul.filter-list.expanded:active,
+  .filters ul.filter-list.expanded:focus {
+    scrollbar-width: thin; 
+  }
+  .filters ul.filter-list.expanded:hover::-webkit-scrollbar,
+  .filters ul.filter-list.expanded:active::-webkit-scrollbar,
+  .filters ul.filter-list.expanded:focus::-webkit-scrollbar {
+    display: block;
+  }
+  .filters {
+    max-width: 100%;
+  }
+  .filters ul.filter-list.expanded {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin; 
+    scrollbar-color: var(--secondary-color) var(--bg-light);
+    max-width: calc(100vw - 100px);
+    margin-right: 8px;
+    padding-right: 5px;
+  }
+  .filters ul.filter-list.expanded::-webkit-scrollbar {
+    height: 4px; 
+  }
+  .filters ul.filter-list.expanded::-webkit-scrollbar-track {
+    background: var(--bg-light);
+    border-radius: 10px;
+  }
+  .filters ul.filter-list.expanded::-webkit-scrollbar-thumb {
+    background: var(--secondary-color);
+    border-radius: 10px;
+  }
+  .filters ul.filter-list.expanded li {
+    white-space: nowrap;
+    flex-shrink: 0; 
+  }
+  button.filter-button {
+    flex-shrink: 0;
+  }
+}
+@media (max-width: 890px) {
+  .search-bar {
+    margin-top: 32px;
+    gap: 20px;
+  }
+  .search.collapsed {
+    padding: 20px;
+  }
+  .search.collapsed .field {
+    padding: 8px 10px;
+    justify-content: center;
+  }
+  .search.collapsed .field svg {
+    margin-left: 0;
+  }
+  .filters ul.filter-list.expanded {
+    max-width: calc(100vw - 80px);
+  }
+  .filters ul.filter-list.expanded li {
+    padding: 12px 12px;
+  }
+}
+@media (max-width: 768px) {
+  header.header {
+    padding: 16px 24px;
+  }
+  header.header h1 {
+    font-size: 28px;
+  }
+  .main {
+    padding: 0 24px;
+  }
+  .event-list {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+}
+
+@media (max-width: 580px) {
+  form.event .bottom .row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px;
+  }
+  form.event {
+    gap: 24px;
+  }
+  form.event svg {
+    width: 16px;
+    height: 16px;
+  }
+  form.event input { 
+    font-size: 14px;
+    padding: 8px 8px 8px 0;
+  }
+  .event-modal h2 {
+    font-size: 36px;
+  }
+  form.event .event-status {
+    align-self: start;
+  }
+  form.event select {
+    padding: 8.5px 30px 8.5px 12px;
+    font-size: 14px;
+  }
+  form.event div:not(.event-status) svg {
+    margin-left: 8px;
+  }
+  form.event .top,
+  form.event .bottom .row {
+    gap: 16px;
+  }
+  label {
+    font-size: 14px;
+  }
+  .event-modal { 
+    max-width: 85vw;
+    padding: 16px;
+    gap: 12px;
+  }
+  form.event .field,
+  form.event .bottom .row .date-time {
+    gap: 8px;
+  }
+  form.event .bottom button {
+    padding: 8px 24px;
+    border-radius: 16px;
+  }
+  form.event .bottom {
+    gap: 24px;
+  }
+}
+@media (max-width: 520px) {
+  header.header {
+    padding: 12px 16px;
+  }
+  .main {
+    padding: 0 16px;
+  }
+  header .buttons .add-event-button {
+    font-size: 0;
+    padding: 8px 12px;
+  }
+  header .buttons {
+    gap: 12px;
+  }
+  .search-bar {
+    padding-right: 4px;
+  }
+  .event-list-wrapper {
+    margin-bottom: 0;
+    padding: 0 0 12px 0;
+    border-radius: 20px 20px 0 0;
+  }
+  .event-list-wrapper::-webkit-scrollbar,
+  .event-list-wrapper::-webkit-scrollbar-track,
+  .event-list-wrapper::-webkit-scrollbar-thumb,
+  .event-list-wrapper::-webkit-scrollbar-thumb:hover {
+    display: none;
+  }
+  form.event button {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+  footer.footer {
+    display: none;
+  }
+}
+@media (max-width: 375px) {
+  .event-modal { 
+    max-width: 90vw;
+  }
+}
