@@ -10,7 +10,7 @@ export default function EventList({ onEventClose, openModal, events = [] }) {
                         key={event.id}
                         event={event}
                         openModal={openModal}
-                        onClose={onEventClose ? () => onEventClose(event.id) : undefined}
+                        onClose={() => onEventClose(event.id)}
                     />
                 ))}
             </ul>

@@ -21,14 +21,11 @@ export default function SearchBar({ searchTerm, setSearchTerm }) {
     const handleFieldClick = () => {
         if (isMobile) {
             if (isExpanded) {
-                // If expanded, collapse filters and focus input
                 setIsExpanded(false);
-                // Use setTimeout to ensure the input is rendered before focusing
                 setTimeout(() => {
                     inputRef.current?.focus();
                 }, 0);
             } else {
-                // If collapsed, just focus the input
                 inputRef.current?.focus();
             }
         }

@@ -3,7 +3,7 @@ import EventModal from './EventModal.jsx';
 import EventList from './EventList.jsx';
 import SearchBar from './SearchBar.jsx';
 
-export default function Main({ isModalOpen, closeModal, openModal, handleEventSubmit, events = [] }) {
+export default function Main({ isModalOpen, closeModal, openModal, handleEventSubmit, handleDeleteEvent, events = [] }) {
 
     const [searchTerm, setSearchTerm] = useState('');
     const [selectedEvent, setSelectedEvent] = useState(null);
@@ -33,7 +33,7 @@ export default function Main({ isModalOpen, closeModal, openModal, handleEventSu
                 events={events} 
                 searchTerm={searchTerm} 
                 openModal={handleOpenModal} 
-                onEventClose={closeModal}
+                onEventClose={handleDeleteEvent}
             />
             <EventModal
                 isOpen={isModalOpen}

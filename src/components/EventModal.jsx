@@ -3,22 +3,17 @@ export default function EventModal({ isOpen, onClose, eventData = null, onSubmit
 
     const isEditing = eventData !== null;
 
-    const formatDateForInput = (dateString) => {
-        if (!dateString) return '';
-        const [day, month, year] = dateString.split('.');
-        return `${year}-${month}-${day}`;
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const eventDetails = {
-            id: isEditing ? eventData.id : Date.now(), // Generate ID for new events
+            id: isEditing ? eventData.id : Date.now(),
             title: formData.get('event-name'),
             location: formData.get('event-location'),
-            date: formData.get('event-date'),
+            date: formData.get('event-date'), 
             time: formData.get('event-time'),
-            status: formData.get('event-status')
+            status: formData.get('event-status').charAt(0).toUpperCase() + 
+                    formData.get('event-status').slice(1)
         };
         onSubmit(eventDetails);
         onClose();
@@ -78,7 +73,7 @@ export default function EventModal({ isOpen, onClose, eventData = null, onSubmit
                                         <input 
                                             type="date" 
                                             name="event-date" 
-                                            defaultValue={isEditing ? formatDateForInput(eventData.date) : ''}
+                                            defaultValue={isEditing ? eventData.date : ''}
                                             required 
                                         />
                                     </div>
