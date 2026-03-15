@@ -272,6 +272,11 @@ form.event input[type="text"],
 form.event input[type="location"] {
   flex: 1 1 0;
 }
+.error {
+  color: var(--error-state);
+  font-size: 12px;
+  margin-top: 4px;
+}
 /* Search Bar*/
 .search-bar {
   display: flex;
