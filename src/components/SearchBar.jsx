@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 
-export default function SearchBar({ searchTerm, setSearchTerm }) {
+export default function SearchBar({ searchTerm, setSearchTerm, filter, setFilter }) {
     const [isExpanded, setIsExpanded] = useState(true);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 890);
     const inputRef = useRef(null);
@@ -31,6 +31,10 @@ export default function SearchBar({ searchTerm, setSearchTerm }) {
         }
     };
 
+    const handleFilterClick = (filterValue) => {
+        setFilter(filterValue);
+    };
+
     return (
         <div className="search-bar">
             <div className={`search ${isMobile && isExpanded ? 'collapsed' : ''}`}>
@@ -51,12 +55,42 @@ export default function SearchBar({ searchTerm, setSearchTerm }) {
             </div>
             <div className="filters">
                 <ul className={`filter-list ${isExpanded ? 'expanded' : ''}`}>
-                    <li className="active">All</li>
-                    <li>Upcoming</li>
-                    <li>Past</li>
-                    <li>Planned</li>
-                    <li>Completed</li>
-                    <li>Cancelled</li>
+                    <li 
+                        className={filter === 'all' ? 'active' : ''} 
+                        onClick={() => handleFilterClick('all')}
+                    >
+                        All
+                    </li>
+                    <li 
+                        className={filter === 'upcoming' ? 'active' : ''} 
+                        onClick={() => handleFilterClick('upcoming')}
+                    >
+                        Upcoming
+                    </li>
+                    <li 
+                        className={filter === 'past' ? 'active' : ''} 
+                        onClick={() => handleFilterClick('past')}
+                    >
+                        Past
+                    </li>
+                    <li 
+                        className={filter === 'planned' ? 'active' : ''} 
+                        onClick={() => handleFilterClick('planned')}
+                    >
+                        Planned
+                    </li>
+                    <li 
+                        className={filter === 'completed' ? 'active' : ''} 
+                        onClick={() => handleFilterClick('completed')}
+                    >
+                        Completed
+                    </li>
+                    <li 
+                        className={filter === 'canceled' ? 'active' : ''} 
+                        onClick={() => handleFilterClick('canceled')}
+                    >
+                        Cancelled
+                    </li>
                 </ul>
                 <button 
                     className={`filter-button ${isExpanded ? 'expanded' : ''}`} 

@@ -13,6 +13,7 @@ function App() {
         { id: 5, status: 'Canceled', title: 'Music Festival', date: '2026-08-20', time: '12:00', location: 'Central Park, Bigcity' },
         { id: 6, status: 'Planned', title: 'Tech Meetup', date: '2026-07-30', time: '19:00', location: 'Tech Hub, Innovatown' }
     ]);
+    const [filter, setFilter] = useState('all');
     const [isModalOpen, setIsModalOpen] = useState(false);
     
     const openModal = () => setIsModalOpen(true);
@@ -41,11 +42,13 @@ function App() {
             <Header openModal={openModal} />
             <Main 
                 events={events} 
+                handleEventSubmit={handleEventSubmit}
+                handleDeleteEvent={handleDeleteEvent}
+                filter={filter}
+                setFilter={setFilter}
                 isModalOpen={isModalOpen} 
                 closeModal={closeModal} 
                 openModal={openModal}
-                handleEventSubmit={handleEventSubmit}
-                handleDeleteEvent={handleDeleteEvent}
             /> 
             <Footer />
         </div>

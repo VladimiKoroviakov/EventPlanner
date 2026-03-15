@@ -1,11 +1,32 @@
 import EventListItem from './EventListItem.jsx';
 
-export default function EventList({ onEventClose, openModal, events = [] }) {
+export default function EventList({ onEventClose, openModal, events = [], filter, searchTerm }) {
+    
+    // Filtering functionality
+    const filteredEvents = events.filter(event => {
+        const matchesSearch = searchTerm === '' || 
+            event.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            event.location.toLowerCase().includes(searchTerm.toLowerCase());
+        
+        if (!matchesSearch) return false;
+        
+        if (filter === 'all') return true;
+        if (filter === 'upcoming') {
+            const today = new Date().toISOString().split('T')[0];
+            return event.date >= today && event.status !== 'Canceled' && event.status !== 'Completed';
+        }
+        if (filter === 'past') {
+            const today = new Date().toISOString().split('T')[0];
+            return event.date < today;
+        }
+
+        return event.status.toLowerCase() === filter.toLowerCase();
+    });
     
     return (
         <div className="event-list-wrapper">
             <ul className="event-list">
-                {events.map((event) => (
+                {filteredEvents.map((event) => (
                     <EventListItem
                         key={event.id}
                         event={event}
@@ -14,6 +35,9 @@ export default function EventList({ onEventClose, openModal, events = [] }) {
                     />
                 ))}
             </ul>
+            {filteredEvents.length === 0 && (
+                <p className="no-events">No events found</p>
+            )}
         </div>
     );
 }
