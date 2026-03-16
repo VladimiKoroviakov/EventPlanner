@@ -1,16 +1,4 @@
-import { useEffect, useState } from "react";
-
-export default function Header({ openModal }) {
-    const [dark, setDark] = useState(false);
-
-    useEffect(() => {
-        const root = document.documentElement;
-        if (dark) {
-            root.classList.add("dark");
-        } else {
-            root.classList.remove("dark");
-        }
-    }, [dark]);
+export default function Header({ openModal, dark, toggleTheme }) {
 
     return (
         <header className="header">
@@ -20,7 +8,7 @@ export default function Header({ openModal }) {
                     <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#1f1f1f"><path d="M444-444H240v-72h204v-204h72v204h204v72H516v204h-72v-204Z"/></svg>                    
                     Add Event
                 </button>
-                <button className="theme-mode-button" onClick={() => setDark(d => !d)}>
+                <button className="theme-mode-button" onClick={toggleTheme}>
                     { dark ? (
                             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M338.5-338.5Q280-397 280-480t58.5-141.5Q397-680 480-680t141.5 58.5Q680-563 680-480t-58.5 141.5Q563-280 480-280t-141.5-58.5ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z"/></svg>
                         ) : (
