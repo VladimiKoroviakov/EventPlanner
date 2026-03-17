@@ -2,6 +2,7 @@ import { useState } from 'react';
 import EventModal from './EventModal.jsx';
 import EventList from './EventList.jsx';
 import SearchBar from './SearchBar.jsx';
+import ApiEventList from './ApiEventList.jsx';
 
 export default function Main({ isModalOpen, closeModal, openModal, filter, setFilter, handleEventSubmit, handleDeleteEvent, events = [] }) {
 
@@ -35,6 +36,10 @@ export default function Main({ isModalOpen, closeModal, openModal, filter, setFi
                 events={events} 
                 filter={filter}
                 searchTerm={searchTerm} 
+                openModal={handleOpenModal} 
+                onEventClose={handleDeleteEvent}
+            />
+            <ApiEventList  
                 openModal={handleOpenModal} 
                 onEventClose={handleDeleteEvent}
             />
