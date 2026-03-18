@@ -51,7 +51,7 @@ export default function ApiEventList({ openModal, onEventClose }) {
 
     return (
         <>
-            <h2 style={{ marginBottom: '20px' }}>Upcoming API Events (from DummyJSON Todos)</h2>
+            <h2 style={{ marginBottom: '20px', color: 'var(--text)' }}>Upcoming API Events (from DummyJSON Todos)</h2>
             <section className="event-list-wrapper">
                 <ul className="event-list">
                     {events.map((event) => (
