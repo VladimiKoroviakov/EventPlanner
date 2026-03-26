@@ -1,3 +1,4 @@
+import { Link } from 'react-router';
 import StatusBadge from './StatusBadge.jsx';
 import EventDetail from './EventDetail.jsx';
 
@@ -15,27 +16,32 @@ export default function EventListItem({ event, onClose, openModal }) {
             </div>
             <div className="list">
                 <div className="date-time">
-                    <EventDetail label="Date" 
-                        eventDetail={event.date} 
+                    <EventDetail label="Date"
+                        eventDetail={event.date}
                         eventDetailType="date"
                     />
-                    <EventDetail label="Time" 
-                        eventDetail={event.time} 
+                    <EventDetail label="Time"
+                        eventDetail={event.time}
                         eventDetailType="time"
                     />
                 </div>
                 <div className="location">
-                    <EventDetail label="Location" 
-                        eventDetail={event.location} 
-                        eventDetailType="location" 
+                    <EventDetail label="Location"
+                        eventDetail={event.location}
+                        eventDetailType="location"
                     />
                 </div>
             </div>
-            <button className="edit-button" onClick={() => openModal(event)}>
-                <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
-                    <path d="M144-144v-153l498-498q11-11 24-16t27-5q14 0 27 5t24 16l51 51q11 11 16 24t5 27q0 14-5 27t-16 24L297-144H144Zm549-498 51-51-51-51-51 51 51 51Z"/>
-                </svg>
-            </button>
+            <div className="event-list-item__actions">
+                <Link to={`/event/${event.id}`} className="details-link">
+                    Details
+                </Link>
+                <button className="edit-button" onClick={() => openModal(event)}>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
+                        <path d="M144-144v-153l498-498q11-11 24-16t27-5q14 0 27 5t24 16l51 51q11 11 16 24t5 27q0 14-5 27t-16 24L297-144H144Zm549-498 51-51-51-51-51 51 51 51Z"/>
+                    </svg>
+                </button>
+            </div>
         </li>
     );
 }

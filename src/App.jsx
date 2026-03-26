@@ -1,8 +1,12 @@
 import './App.css'
 import { useState, useEffect } from 'react';
-import Footer from './components/Footer'
-import Header from './components/Header'
-import Main from './components/Main'
+import { Routes, Route, Navigate } from 'react-router';
+import Layout from './components/Layout.jsx';
+import HomePage from './pages/HomePage.jsx';
+import EventsPage from './pages/EventsPage.jsx';
+import EventDetailPage from './pages/EventDetailPage.jsx';
+import AboutPage from './pages/AboutPage.jsx';
+import NotFoundPage from './pages/NotFoundPage.jsx';
 
 function App() {
     // Events state (localStorage)
@@ -35,7 +39,7 @@ function App() {
     // UI filter & modal state
     const [filter, setFilter] = useState('all');
     const [isModalOpen, setIsModalOpen] = useState(false);
-    
+
     // Save events to localStorage
     useEffect(() => {
         localStorage.setItem('events_data', JSON.stringify(events));
@@ -60,9 +64,8 @@ function App() {
     // Add or update event
     const handleEventSubmit = (eventData) => {
         const existingEvent = events.find(event => event.id === eventData.id);
-        
         if (existingEvent) {
-            setEvents(events.map(event => 
+            setEvents(events.map(event =>
                 event.id === eventData.id ? eventData : event
             ));
         } else {
@@ -70,27 +73,39 @@ function App() {
         }
     };
 
-    // Remove events 
+    // Remove event
     const handleDeleteEvent = (eventId) => {
         setEvents(events.filter(event => event.id !== eventId));
     };
 
     return (
-        <div className="app">
-            <Header openModal={openModal} dark={dark} toggleTheme={toggleTheme} />
-            <Main 
-                events={events} 
-                handleEventSubmit={handleEventSubmit}
-                handleDeleteEvent={handleDeleteEvent}
-                filter={filter}
-                setFilter={setFilter}
-                isModalOpen={isModalOpen} 
-                closeModal={closeModal} 
-                openModal={openModal}
-            /> 
-            <Footer />
-        </div>
-    )
+        <Routes>
+            {/* Bonus: Layout component as nested route wrapper (no path) */}
+            <Route element={<Layout openModal={openModal} dark={dark} toggleTheme={toggleTheme} />}>
+                <Route index element={<HomePage events={events} />} />
+                <Route path="events" element={
+                    <EventsPage
+                        events={events}
+                        handleEventSubmit={handleEventSubmit}
+                        handleDeleteEvent={handleDeleteEvent}
+                        filter={filter}
+                        setFilter={setFilter}
+                        isModalOpen={isModalOpen}
+                        closeModal={closeModal}
+                        openModal={openModal}
+                    />
+                } />
+                <Route path="event/:id" element={
+                    <EventDetailPage events={events} />
+                } />
+                <Route path="about" element={<AboutPage />} />
+                {/* Bonus: redirect /home → / */}
+                <Route path="home" element={<Navigate to="/" replace />} />
+                {/* 404 — must be last */}
+                <Route path="*" element={<NotFoundPage />} />
+            </Route>
+        </Routes>
+    );
 }
 
 export default App
