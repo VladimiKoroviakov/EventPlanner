@@ -2,6 +2,7 @@ import './App.css'
 import { useState, useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router';
 import Layout from './components/Layout.jsx';
+import EventModal from './components/EventModal.jsx';
 import HomePage from './pages/HomePage.jsx';
 import EventsPage from './pages/EventsPage.jsx';
 import EventDetailPage from './pages/EventDetailPage.jsx';
@@ -39,6 +40,8 @@ function App() {
     // UI filter & modal state
     const [filter, setFilter] = useState('all');
     const [isModalOpen, setIsModalOpen] = useState(false);
+    // selectedEvent lives here so openModal works from any page (e.g. Header button)
+    const [selectedEvent, setSelectedEvent] = useState(null);
 
     // Save events to localStorage
     useEffect(() => {
@@ -58,8 +61,16 @@ function App() {
 
     // Theme & modal handlers
     const toggleTheme = () => setDark(prev => !prev);
-    const openModal = () => setIsModalOpen(true);
-    const closeModal = () => setIsModalOpen(false);
+
+    // openModal accepts an optional event object (null = "Add new" mode)
+    const openModal = (event = null) => {
+        setSelectedEvent(event || null);
+        setIsModalOpen(true);
+    };
+    const closeModal = () => {
+        setSelectedEvent(null);
+        setIsModalOpen(false);
+    };
 
     // Add or update event
     const handleEventSubmit = (eventData) => {
@@ -71,6 +82,7 @@ function App() {
         } else {
             setEvents([...events, eventData]);
         }
+        closeModal();
     };
 
     // Remove event
@@ -79,32 +91,39 @@ function App() {
     };
 
     return (
-        <Routes>
-            {/* Bonus: Layout component as nested route wrapper (no path) */}
-            <Route element={<Layout openModal={openModal} dark={dark} toggleTheme={toggleTheme} />}>
-                <Route index element={<HomePage events={events} />} />
-                <Route path="events" element={
-                    <EventsPage
-                        events={events}
-                        handleEventSubmit={handleEventSubmit}
-                        handleDeleteEvent={handleDeleteEvent}
-                        filter={filter}
-                        setFilter={setFilter}
-                        isModalOpen={isModalOpen}
-                        closeModal={closeModal}
-                        openModal={openModal}
-                    />
-                } />
-                <Route path="event/:id" element={
-                    <EventDetailPage events={events} />
-                } />
-                <Route path="about" element={<AboutPage />} />
-                {/* Bonus: redirect /home → / */}
-                <Route path="home" element={<Navigate to="/" replace />} />
-                {/* 404 — must be last */}
-                <Route path="*" element={<NotFoundPage />} />
-            </Route>
-        </Routes>
+        <>
+            <Routes>
+                {/* Layout component as nested route wrapper (no path) */}
+                <Route element={<Layout openModal={openModal} dark={dark} toggleTheme={toggleTheme} />}>
+                    <Route index element={<HomePage events={events} />} />
+                    <Route path="events" element={
+                        <EventsPage
+                            events={events}
+                            handleDeleteEvent={handleDeleteEvent}
+                            filter={filter}
+                            setFilter={setFilter}
+                            openModal={openModal}
+                        />
+                    } />
+                    <Route path="event/:id" element={
+                        <EventDetailPage events={events} />
+                    } />
+                    <Route path="about" element={<AboutPage />} />
+                    {/* Redirect /home → / */}
+                    <Route path="home" element={<Navigate to="/" replace />} />
+                    {/* 404 — must be last */}
+                    <Route path="*" element={<NotFoundPage />} />
+                </Route>
+            </Routes>
+
+            {/* Modal lives outside Routes so it works on every page */}
+            <EventModal
+                isOpen={isModalOpen}
+                onClose={closeModal}
+                eventData={selectedEvent}
+                onSubmit={handleEventSubmit}
+            />
+        </>
     );
 }
 
