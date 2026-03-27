@@ -11,6 +11,7 @@ export default function EventsPage({
     openModal,
 }) {
     const [searchTerm, setSearchTerm] = useState('');
+    const [source, setSource] = useState('local');
 
     return (
         <main className="main">
@@ -20,17 +21,38 @@ export default function EventsPage({
                 filter={filter}
                 setFilter={setFilter}
             />
-            <EventList
-                events={events}
-                filter={filter}
-                searchTerm={searchTerm}
-                openModal={openModal}
-                onEventClose={handleDeleteEvent}
-            />
-            <ApiEventList
-                openModal={openModal}
-                onEventClose={handleDeleteEvent}
-            />
+
+            {source === 'local' ? (
+                <EventList
+                    events={events}
+                    filter={filter}
+                    searchTerm={searchTerm}
+                    openModal={openModal}
+                    onEventClose={handleDeleteEvent}
+                />
+            ) : (
+                <ApiEventList
+                    filter={filter}
+                    searchTerm={searchTerm}
+                    openModal={openModal}
+                    onEventClose={handleDeleteEvent}
+                />
+            )}
+
+            <div className="source-switcher">
+                <button
+                    className={`source-switcher__btn${source === 'local' ? ' active' : ''}`}
+                    onClick={() => setSource('local')}
+                >
+                    My Events
+                </button>
+                <button
+                    className={`source-switcher__btn${source === 'api' ? ' active' : ''}`}
+                    onClick={() => setSource('api')}
+                >
+                    API Events
+                </button>
+            </div>
         </main>
     );
 }

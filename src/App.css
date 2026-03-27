@@ -475,6 +475,57 @@ button.filter-button svg {
 button.filter-button.expanded svg {
   color: var(--text-muted);
 }
+.api-event-list__title {
+  color: var(--text);
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.api-event-list__title span {
+  color: var(--text-muted);
+  font-size: 15px;
+  font-weight: 400;
+}
+.api-status {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-muted);
+  font-size: 16px;
+}
+.api-status.api-error {
+  color: #e05252;
+}
+.source-switcher {
+  display: flex;
+  justify-content: flex-start;
+  gap: 8px;
+}
+.source-switcher__btn {
+  display: flex;
+  padding: 4px 16px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px 12px 0 0;
+  border: 1px solid var(--secondary-color);
+  border-bottom: none;
+  background: transparent;
+  color: var(--secondary-color);
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.source-switcher__btn:hover {
+  background: var(--secondary-color);
+  color: var(--bg-light);
+  opacity: 0.8;
+}
+.source-switcher__btn.active {
+  background: var(--secondary-color);
+  color: var(--bg-light);
+  opacity: 1;
+}
 .no-events {
   position: absolute;
   top: 50%;
@@ -580,7 +631,7 @@ button.filter-button.expanded svg {
   fill: var(--text);
 }
 /* Status badge */
-.event-list-item .title .status-badge {
+.status-badge {
   display: flex;
   align-items: center;
   padding: 2px 8px;
@@ -591,25 +642,25 @@ button.filter-button.expanded svg {
   font-size: 14px;
   font-weight: 400;
 }
-.event-list-item .title .status-badge.planned {
+.status-badge.planned {
   border: 1px solid var(--pending-state);
   color: var(--pending-state);
 }
-.event-list-item .title .status-badge.planned svg {
+.status-badge.planned svg {
   color: var(--pending-state);
 }
-.event-list-item .title .status-badge.canceled {
+.status-badge.canceled {
   border: 1px solid var(--error-state);
   color: var(--error-state);
 }
-.event-list-item .title .status-badge.canceled svg {
+.status-badge.canceled svg {
   color: var(--error-state);
 }
-.event-list-item .title .status-badge.completed {
+.status-badge.completed {
   border: 1px solid var(--success-state);
   color: var(--success-state);
 }
-.event-list-item .title .status-badge.completed svg {
+.status-badge.completed svg {
   color: var(--success-state);
 }
 /* Event Details */
@@ -667,7 +718,7 @@ a.details-link:hover {
   border-radius: 24px;
   box-shadow: var(--card-shadow);
   padding: 40px;
-  margin-top: 32px;
+  margin: 32px 0;
   width: 100%;
   box-sizing: border-box;
 }
@@ -761,11 +812,30 @@ a.home-hero__cta:hover {
   color: var(--text);
   margin-bottom: 16px;
 }
+.about-panel__columns {
+  margin-top: 28px;
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+.about-panel__col {
+  flex: 1;
+  min-width: 0;
+}
+@media (max-width: 768px) {
+  .about-panel__columns {
+    flex-direction: column;
+    gap: 24px;
+  }
+}
 .about-panel__subtitle {
   font-size: 20px;
   font-weight: 600;
   color: var(--text);
   margin: 24px 0 12px;
+}
+.about-panel__col .about-panel__subtitle:first-child {
+  margin-top: 0;
 }
 .about-panel__text {
   color: var(--text-muted);
@@ -1010,16 +1080,25 @@ footer.footer {
   }
 }
 @media (max-width: 890px) {
+  .search {
+    padding: 8px;
+    border-radius: 16px;
+  }
+  .filters {
+    padding: 8px;
+    border-radius: 16px;
+  }
   .search-bar {
-    margin-top: 32px;
-    gap: 20px;
+    margin-top: 20px;
+    gap: 16px;
   }
   .search.collapsed {
-    padding: 20px;
+    padding: 8px;
   }
   .search.collapsed .field {
     padding: 8px 10px;
     justify-content: center;
+    border-radius: 12px;
   }
   .search.collapsed .field svg {
     margin-left: 0;
@@ -1102,6 +1181,10 @@ footer.footer {
   form.event .bottom {
     gap: 24px;
   }
+  header .buttons .add-event-button {
+    font-size: 0;
+    padding: 8px 12px;
+  }
 }
 @media (max-width: 520px) {
   header.header {
@@ -1109,10 +1192,6 @@ footer.footer {
   }
   .main {
     padding: 0 16px;
-  }
-  header .buttons .add-event-button {
-    font-size: 0;
-    padding: 8px 12px;
   }
   header .buttons {
     gap: 12px;
@@ -1175,4 +1254,9 @@ footer.footer {
 @media (max-width: 480px) {
   .home-stats { gap: 10px; }
   .not-found-panel__code { font-size: 72px; }
+}
+@media (max-width: 325px) {
+  .home-stats {
+    grid-template-columns: 1fr;
+  }
 }
