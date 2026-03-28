@@ -1,12 +1,44 @@
 import { useParams, Link, useNavigate } from 'react-router';
+import { useState, useEffect } from 'react';
 import EventDetail from '../components/EventDetail.jsx';
 import StatusBadge from '../components/StatusBadge.jsx';
 
 export default function EventDetailPage({ events = [], loading = false }) {
     const { id } = useParams();
     const navigate = useNavigate();
+    const [apiEvent, setApiEvent] = useState(null);
+    const [apiLoading, setApiLoading] = useState(false);
+    const [apiError, setApiError] = useState(null);
 
-    if (loading) {
+    const isApiEvent = id.startsWith('api-');
+
+    useEffect(() => {
+        if (!isApiEvent) return;
+        const todoId = id.replace('api-', '');
+        async function fetchTodo() {
+            setApiLoading(true);
+            try {
+                const res = await fetch(`https://dummyjson.com/todos/${todoId}`);
+                if (!res.ok) throw new Error('Not found');
+                const todo = await res.json();
+                setApiEvent({
+                    id: `api-${todo.id}`,
+                    status: todo.completed ? 'Completed' : 'Planned',
+                    title: todo.todo,
+                    date: '2024-12-31',
+                    time: '18:00',
+                    location: 'Online'
+                });
+            } catch {
+                setApiError(true);
+            } finally {
+                setApiLoading(false);
+            }
+        }
+        fetchTodo();
+    }, [id, isApiEvent]);
+
+    if (loading || apiLoading) {
         return (
             <main className="main">
                 <section className="panel">
@@ -16,9 +48,9 @@ export default function EventDetailPage({ events = [], loading = false }) {
         );
     }
 
-    const event = events.find(e => String(e.id) === id);
+    const event = isApiEvent ? apiEvent : events.find(e => String(e.id) === id);
 
-    if (!event) {
+    if (!event || apiError) {
         return (
             <main className="main">
                 <section className="panel event-detail-page__not-found">
