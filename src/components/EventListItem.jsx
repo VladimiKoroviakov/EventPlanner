@@ -1,10 +1,14 @@
 import { Link } from 'react-router';
 import StatusBadge from './StatusBadge.jsx';
 import EventDetail from './EventDetail.jsx';
+import { useTheme } from '../context/ThemeContext.jsx';
 
+// EventListItem reads the current theme via context — no props needed.
 export default function EventListItem({ event, onClose, openModal }) {
+    const { dark } = useTheme();
+
     return (
-        <li className="event-list-item">
+        <li className={`event-list-item${dark ? ' event-list-item--dark' : ''}`}>
             <div className="title">
                 <StatusBadge status={event.status} />
                 <h3>{event.title}</h3>

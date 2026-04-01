@@ -150,6 +150,24 @@ header .buttons .theme-mode-button {
 header .buttons .theme-mode-button svg {
   fill: var(--text);
 }
+/* Language toggle button (SettingsContext bonus) */
+header .buttons .lang-toggle-button {
+  height: 36px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: var(--font-main);
+}
+header .buttons .lang-toggle-button:hover {
+  background: var(--bg-dark);
+  box-shadow: none;
+}
 
 /* --------------- Main Part --------------- */
 /* NewEventModal Component */

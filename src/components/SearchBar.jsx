@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 
 export default function SearchBar({ searchTerm, setSearchTerm, filter, setFilter }) {
-    const [isExpanded, setIsExpanded] = useState(true);
+    const [isExpanded, setIsExpanded] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 890);
     const inputRef = useRef(null);
 
