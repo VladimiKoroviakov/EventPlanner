@@ -16,12 +16,13 @@ export default function Button({
   disabled = false,
   onClick,
   children,
+  className: extraClassName = '',
   ...rest
 }) {
   const variantClass = styles[variant] ?? styles.primary;
   const sizeClass    = size !== 'md' ? (styles[size] ?? '') : '';
 
-  const className = [styles.button, variantClass, sizeClass]
+  const className = [styles.button, variantClass, sizeClass, extraClassName]
     .filter(Boolean)
     .join(' ');
 
