@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useSettings } from '../context/SettingsContext.jsx';
-import { Button, Input } from './ui';
+import { Button } from './ui';
 
 export default function EventForm({ isEditing, eventData, onSubmit }) {
     const { t } = useSettings();
@@ -58,45 +58,44 @@ export default function EventForm({ isEditing, eventData, onSubmit }) {
     return (
         <form className="event" onSubmit={handleSubmit}>
             <div className="top">
-                {/* Event name — UI Input component */}
                 <div className="field">
-                    <Input
-                        id="event-name"
-                        label={t.formNameLabel}
-                        placeholder={t.formNamePlaceholder}
-                        value={title}
-                        icon={
-                            <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
-                                <path d="M96 0v-192h768V0H96Zm96-288v-152.92L594-843q11-11 23.84-16 12.83-5 27-5 14.16 0 27.16 5t24.1 15.94L747-792q11 11 16 24t5 27.4q0 13.49-4.95 26.54-4.95 13.05-15.75 23.85L345-288H192Zm453-402 51-51-51-51-51 51 51 51Z"/>
-                            </svg>
-                        }
-                        onChange={(e) => {
-                            setTitle(e.target.value);
-                            setErrors(prev => ({ ...prev, title: '' }));
-                        }}
-                        required
-                    />
+                    <label htmlFor="event-name">{t.formNameLabel}</label>
+                    <div className="event-input event-name">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
+                            <path d="M96 0v-192h768V0H96Zm96-288v-152.92L594-843q11-11 23.84-16 12.83-5 27-5 14.16 0 27.16 5t24.1 15.94L747-792q11 11 16 24t5 27.4q0 13.49-4.95 26.54-4.95 13.05-15.75 23.85L345-288H192Zm453-402 51-51-51-51-51 51 51 51Z"/>
+                        </svg>
+                        <input
+                            type="text"
+                            name="event-name"
+                            value={title}
+                            onChange={(e) => {
+                                setTitle(e.target.value);
+                                setErrors(prev => ({ ...prev, title: '' }));
+                            }}
+                            placeholder={t.formNamePlaceholder}
+                            required
+                        />
+                    </div>
                     {errors.title && <p className="error">{errors.title}</p>}
                 </div>
-
-                {/* Location — UI Input component */}
                 <div className="field">
-                    <Input
-                        id="event-location"
-                        label={t.formLocationLabel}
-                        placeholder={t.formLocationPlaceholder}
-                        value={location}
-                        icon={
-                            <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
-                                <path d="M531-501q21-21 21-51t-21-51q-21-21-51-21t-51 21q-21 21-21 51t21 51q21 21 51 21t51-21ZM480-96Q323-227 245.5-339.5T168-549q0-134 89-224.5T480-864q133 0 222.5 90.5T792-549q0 97-77 209T480-96Z"/>
-                            </svg>
-                        }
-                        onChange={(e) => {
-                            setLocation(e.target.value);
-                            setErrors(prev => ({ ...prev, location: '' }));
-                        }}
-                        required
-                    />
+                    <label htmlFor="event-location">{t.formLocationLabel}</label>
+                    <div className="event-input event-location">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
+                            <path d="M531-501q21-21 21-51t-21-51q-21-21-51-21t-51 21q-21 21-21 51t21 51q21 21 51 21t51-21ZM480-96Q323-227 245.5-339.5T168-549q0-134 89-224.5T480-864q133 0 222.5 90.5T792-549q0 97-77 209T480-96Z"/>
+                        </svg>
+                        <input
+                            type="text"
+                            name="event-location"
+                            value={location}
+                            onChange={(e) => {
+                                setLocation(e.target.value);
+                                setErrors(prev => ({ ...prev, location: '' }));
+                            }}
+                            placeholder={t.formLocationPlaceholder}
+                            required
+                        />
+                    </div>
                     {errors.location && <p className="error">{errors.location}</p>}
                 </div>
             </div>
