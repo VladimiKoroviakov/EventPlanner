@@ -1,0 +1,52 @@
+/* ============================================================
+   Card — CSS Module
+   Zones: Card (wrapper) · Card.Header · Card.Body · Card.Footer
+   ============================================================ */
+
+.card {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition:
+    box-shadow var(--transition),
+    background-color var(--transition),
+    border-color var(--transition);
+  overflow: hidden;
+}
+
+.hoverable:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* ---- Zones ---- */
+
+.header {
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+  transition: border-color var(--transition);
+}
+
+.title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin: 0;
+  transition: color var(--transition);
+}
+
+.body {
+  padding: var(--space-4) var(--space-6);
+  color: var(--color-text);
+  transition: color var(--transition);
+}
+
+.footer {
+  padding: var(--space-4) var(--space-6);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  justify-content: flex-end;
+  transition: border-color var(--transition);
+}

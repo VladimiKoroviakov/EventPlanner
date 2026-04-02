@@ -38,7 +38,7 @@ html, body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.dark {
+[data-theme="dark"] {
   --primary-color: #FCE73C;
   --secondary-color: #5E89E8;
   --bg-dark: #000000;

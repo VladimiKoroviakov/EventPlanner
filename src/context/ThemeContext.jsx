@@ -15,15 +15,11 @@ export function ThemeProvider({ children }) {
 
     const toggleTheme = () => setDark(prev => !prev);
 
-    // Persist choice and apply the `.dark` class to <html> on every change
+    // Persist choice and apply data-theme attribute to <html> on every change.
+    // The [data-theme="dark"] selector in tokens.css overrides semantic CSS variables.
     useEffect(() => {
         localStorage.setItem('dark_mode', dark);
-        const root = document.documentElement;
-        if (dark) {
-            root.classList.add('dark');
-        } else {
-            root.classList.remove('dark');
-        }
+        document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
     }, [dark]);
 
     return (
