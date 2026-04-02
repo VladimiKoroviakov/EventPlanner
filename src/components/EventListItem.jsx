@@ -2,10 +2,12 @@ import { Link } from 'react-router';
 import StatusBadge from './StatusBadge.jsx';
 import EventDetail from './EventDetail.jsx';
 import { useTheme } from '../context/ThemeContext.jsx';
+import { useSettings } from '../context/SettingsContext.jsx';
 
-// EventListItem reads the current theme via context — no props needed.
+// EventListItem reads theme and language directly from context — no props needed.
 export default function EventListItem({ event, onClose, openModal }) {
     const { dark } = useTheme();
+    const { t } = useSettings();
 
     return (
         <li className={`event-list-item${dark ? ' event-list-item--dark' : ''}`}>
@@ -20,25 +22,16 @@ export default function EventListItem({ event, onClose, openModal }) {
             </div>
             <div className="list">
                 <div className="date-time">
-                    <EventDetail label="Date"
-                        eventDetail={event.date}
-                        eventDetailType="date"
-                    />
-                    <EventDetail label="Time"
-                        eventDetail={event.time}
-                        eventDetailType="time"
-                    />
+                    <EventDetail eventDetail={event.date} eventDetailType="date" />
+                    <EventDetail eventDetail={event.time} eventDetailType="time" />
                 </div>
                 <div className="location">
-                    <EventDetail label="Location"
-                        eventDetail={event.location}
-                        eventDetailType="location"
-                    />
+                    <EventDetail eventDetail={event.location} eventDetailType="location" />
                 </div>
             </div>
             <div className="event-list-item__actions">
                 <Link to={`/event/${event.id}`} className="details-link">
-                    Details
+                    {t.detailsLink}
                 </Link>
                 <button className="edit-button" onClick={() => openModal(event)}>
                     <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">

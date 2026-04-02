@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import EventListItem from './EventListItem.jsx';
+import { useSettings } from '../context/SettingsContext.jsx';
 
 export default function ApiEventList({ openModal, onEventClose, filter = 'all', searchTerm = '' }) {
+    const { t } = useSettings();
     const [events, setEvents] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -60,16 +62,18 @@ export default function ApiEventList({ openModal, onEventClose, filter = 'all', 
     });
 
     if (isLoading) {
-        return <div className="api-status">Loading API Events...</div>;
+        return <div className="api-status">{t.apiLoading}</div>;
     }
 
     if (error) {
-        return <div className="api-status api-error">Error loading events: {error.message}</div>;
+        return <div className="api-status api-error">{t.apiError} {error.message}</div>;
     }
 
     return (
         <>
-            <h2 className="api-event-list__title">API Events <span>(via DummyJSON)</span></h2>
+            <h2 className="api-event-list__title">
+                {t.apiEventsTitle} <span>{t.apiEventsSource}</span>
+            </h2>
             <section className="event-list-wrapper">
                 <ul className="event-list">
                     {filteredEvents.map((event) => (
@@ -82,7 +86,7 @@ export default function ApiEventList({ openModal, onEventClose, filter = 'all', 
                     ))}
                 </ul>
                 {filteredEvents.length === 0 && (
-                    <p className="no-events">No events found</p>
+                    <p className="no-events">{t.noEventsFound}</p>
                 )}
             </section>
         </>

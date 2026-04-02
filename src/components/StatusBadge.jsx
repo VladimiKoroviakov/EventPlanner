@@ -1,5 +1,14 @@
+import { useSettings } from '../context/SettingsContext.jsx';
 
 export default function StatusBadge({ status = 'Planned' }) {
+    const { t } = useSettings();
+
+    // Map the raw English status key to the translated display label
+    const statusLabel = {
+        Planned: t.statusPlanned,
+        Completed: t.statusCompleted,
+        Canceled: t.statusCanceled,
+    }[status] ?? status;
 
     return (
         <div className={`status-badge ${status.toLowerCase()}`}>
@@ -32,7 +41,7 @@ export default function StatusBadge({ status = 'Planned' }) {
                         </g>
                     </svg>
                 ) : null }
-            {status}
+            {statusLabel}
         </div>
     );
-}   
+}

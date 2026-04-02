@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
+import { useSettings } from '../context/SettingsContext.jsx';
 
 export default function SearchBar({ searchTerm, setSearchTerm, filter, setFilter }) {
+    const { t } = useSettings();
     const [isExpanded, setIsExpanded] = useState(false);
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 890);
     const inputRef = useRef(null);
@@ -46,7 +48,7 @@ export default function SearchBar({ searchTerm, setSearchTerm, filter, setFilter
                         <input
                             ref={inputRef}
                             type="text"
-                            placeholder="Search events..."
+                            placeholder={t.searchPlaceholder}
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -55,41 +57,41 @@ export default function SearchBar({ searchTerm, setSearchTerm, filter, setFilter
             </div>
             <div className="filters">
                 <ul className={`filter-list ${isExpanded ? 'expanded' : ''}`}>
-                    <li 
-                        className={filter === 'all' ? 'active' : ''} 
+                    <li
+                        className={filter === 'all' ? 'active' : ''}
                         onClick={() => handleFilterClick('all')}
                     >
-                        All
+                        {t.filterAll}
                     </li>
-                    <li 
-                        className={filter === 'upcoming' ? 'active' : ''} 
+                    <li
+                        className={filter === 'upcoming' ? 'active' : ''}
                         onClick={() => handleFilterClick('upcoming')}
                     >
-                        Upcoming
+                        {t.filterUpcoming}
                     </li>
-                    <li 
-                        className={filter === 'past' ? 'active' : ''} 
+                    <li
+                        className={filter === 'past' ? 'active' : ''}
                         onClick={() => handleFilterClick('past')}
                     >
-                        Past
+                        {t.filterPast}
                     </li>
-                    <li 
-                        className={filter === 'planned' ? 'active' : ''} 
+                    <li
+                        className={filter === 'planned' ? 'active' : ''}
                         onClick={() => handleFilterClick('planned')}
                     >
-                        Planned
+                        {t.filterPlanned}
                     </li>
-                    <li 
-                        className={filter === 'completed' ? 'active' : ''} 
+                    <li
+                        className={filter === 'completed' ? 'active' : ''}
                         onClick={() => handleFilterClick('completed')}
                     >
-                        Completed
+                        {t.filterCompleted}
                     </li>
-                    <li 
-                        className={filter === 'canceled' ? 'active' : ''} 
+                    <li
+                        className={filter === 'canceled' ? 'active' : ''}
                         onClick={() => handleFilterClick('canceled')}
                     >
-                        Cancelled
+                        {t.filterCanceled}
                     </li>
                 </ul>
                 <button 

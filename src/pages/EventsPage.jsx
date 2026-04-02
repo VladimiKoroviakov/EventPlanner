@@ -2,6 +2,7 @@ import { useState } from 'react';
 import EventList from '../components/EventList.jsx';
 import SearchBar from '../components/SearchBar.jsx';
 import ApiEventList from '../components/ApiEventList.jsx';
+import { useSettings } from '../context/SettingsContext.jsx';
 
 export default function EventsPage({
     events = [],
@@ -10,6 +11,7 @@ export default function EventsPage({
     setFilter,
     openModal,
 }) {
+    const { t } = useSettings();
     const [searchTerm, setSearchTerm] = useState('');
     const [source, setSource] = useState('local');
 
@@ -44,13 +46,13 @@ export default function EventsPage({
                     className={`source-switcher__btn${source === 'local' ? ' active' : ''}`}
                     onClick={() => setSource('local')}
                 >
-                    My Events
+                    {t.myEvents}
                 </button>
                 <button
                     className={`source-switcher__btn${source === 'api' ? ' active' : ''}`}
                     onClick={() => setSource('api')}
                 >
-                    API Events
+                    {t.apiEventsTab}
                 </button>
             </div>
         </main>

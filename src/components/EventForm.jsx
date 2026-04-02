@@ -1,6 +1,8 @@
 import { useState } from "react";
+import { useSettings } from '../context/SettingsContext.jsx';
 
 export default function EventForm({ isEditing, eventData, onSubmit }) {
+    const { t } = useSettings();
     const [title, setTitle] = useState(isEditing ? eventData.title : '');
     const [location, setLocation] = useState(isEditing ? eventData.location : '');
     const [date, setDate] = useState(isEditing ? eventData.date : '');
@@ -22,11 +24,11 @@ export default function EventForm({ isEditing, eventData, onSubmit }) {
         };
 
         if (!title.trim()) {
-            newErrors.title = 'Event name cannot be empty';
+            newErrors.title = t.formErrorName;
         }
 
         if (!location.trim()) {
-            newErrors.location = 'Location cannot be empty';
+            newErrors.location = t.formErrorLocation;
         }
 
         setErrors(newErrors);
@@ -56,7 +58,7 @@ export default function EventForm({ isEditing, eventData, onSubmit }) {
         <form className="event" onSubmit={handleSubmit}>
             <div className="top">
                 <div className="field">
-                    <label htmlFor="event-name">Name</label>
+                    <label htmlFor="event-name">{t.formNameLabel}</label>
                     <div className="event-input event-name">
                         <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
                             <path d="M96 0v-192h768V0H96Zm96-288v-152.92L594-843q11-11 23.84-16 12.83-5 27-5 14.16 0 27.16 5t24.1 15.94L747-792q11 11 16 24t5 27.4q0 13.49-4.95 26.54-4.95 13.05-15.75 23.85L345-288H192Zm453-402 51-51-51-51-51 51 51 51Z"/>
@@ -69,14 +71,14 @@ export default function EventForm({ isEditing, eventData, onSubmit }) {
                                 setTitle(e.target.value);
                                 setErrors(prev => ({ ...prev, title: '' }));
                             }}
-                            placeholder="Event Name..."
+                            placeholder={t.formNamePlaceholder}
                             required
                         />
                     </div>
                     {errors.title && <p className="error">{errors.title}</p>}
                 </div>
                 <div className="field">
-                    <label htmlFor="event-location">Location</label>
+                    <label htmlFor="event-location">{t.formLocationLabel}</label>
                     <div className="event-input event-location">
                         <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
                             <path d="M531-501q21-21 21-51t-21-51q-21-21-51-21t-51 21q-21 21-21 51t21 51q21 21 51 21t51-21ZM480-96Q323-227 245.5-339.5T168-549q0-134 89-224.5T480-864q133 0 222.5 90.5T792-549q0 97-77 209T480-96Z"/>
@@ -89,7 +91,7 @@ export default function EventForm({ isEditing, eventData, onSubmit }) {
                                 setLocation(e.target.value);
                                 setErrors(prev => ({ ...prev, location: '' }));
                             }}
-                            placeholder="Event Location..."
+                            placeholder={t.formLocationPlaceholder}
                             required
                         />
                     </div>
@@ -99,7 +101,7 @@ export default function EventForm({ isEditing, eventData, onSubmit }) {
             <div className="bottom">
                 <div className="row">
                     <div className="date-time">
-                        <label htmlFor="date">Date & Time</label>
+                        <label htmlFor="date">{t.formDateTimeLabel}</label>
                         <div className="date-time-inputs">
                             <div className="event-input event-date">
                                 <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
@@ -128,7 +130,7 @@ export default function EventForm({ isEditing, eventData, onSubmit }) {
                         </div>
                     </div>
                     <div className="field">
-                        <label htmlFor="event-status">Status</label>
+                        <label htmlFor="event-status">{t.formStatusLabel}</label>
                         <div className="event-input event-status">
                             <select
                                 name="event-status"
@@ -136,9 +138,9 @@ export default function EventForm({ isEditing, eventData, onSubmit }) {
                                 onChange={(e) => setStatus(e.target.value)}
                                 required
                             >
-                                <option value="planned">Planned</option>
-                                <option value="completed">Completed</option>
-                                <option value="canceled">Canceled</option>
+                                <option value="planned">{t.formStatusPlanned}</option>
+                                <option value="completed">{t.formStatusCompleted}</option>
+                                <option value="canceled">{t.formStatusCanceled}</option>
                             </select>
                             <svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
                                 <path d="M480-333 240-573l51-51 189 189 189-189 51 51-240 240Z"/>
@@ -146,7 +148,7 @@ export default function EventForm({ isEditing, eventData, onSubmit }) {
                         </div>
                     </div>
                 </div>
-                <button type="submit">{isEditing ? 'Save Changes' : 'Create'}</button>
+                <button type="submit">{isEditing ? t.formSaveChanges : t.formCreate}</button>
             </div>
         </form>
     );

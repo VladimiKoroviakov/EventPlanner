@@ -1,6 +1,9 @@
 import EventForm from '../components/EventForm';
+import { useSettings } from '../context/SettingsContext.jsx';
 
 export default function EventModal({ isOpen, onClose, eventData = null, onSubmit }) {
+    const { t } = useSettings();
+
     if (!isOpen) return null;
 
     const isEditing = eventData !== null;
@@ -18,8 +21,8 @@ export default function EventModal({ isOpen, onClose, eventData = null, onSubmit
                         <path d="M1.0625 10L0 8.9375L3.9375 5L0 1.0625L1.0625 0L5 3.9375L8.9375 0L10 1.0625L6.0625 5L10 8.9375L8.9375 10L5 6.0625L1.0625 10Z" fill="#4D4D4D"/>
                     </svg>
                 </button>
-                <h2>{isEditing ? 'Edit Event' : 'New Event'}</h2>
-                <EventForm 
+                <h2>{isEditing ? t.editEvent : t.newEvent}</h2>
+                <EventForm
                     isEditing={isEditing}
                     eventData={eventData}
                     onSubmit={handleSubmit}

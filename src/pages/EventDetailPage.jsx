@@ -2,10 +2,12 @@ import { useParams, Link, useNavigate } from 'react-router';
 import { useState, useEffect } from 'react';
 import EventDetail from '../components/EventDetail.jsx';
 import StatusBadge from '../components/StatusBadge.jsx';
+import { useSettings } from '../context/SettingsContext.jsx';
 
 export default function EventDetailPage({ events = [], loading = false }) {
     const { id } = useParams();
     const navigate = useNavigate();
+    const { t } = useSettings();
     const [apiEvent, setApiEvent] = useState(null);
     const [apiLoading, setApiLoading] = useState(false);
     const [apiError, setApiError] = useState(null);
@@ -42,7 +44,7 @@ export default function EventDetailPage({ events = [], loading = false }) {
         return (
             <main className="main">
                 <section className="panel">
-                    <p className="status-msg">Loading event details…</p>
+                    <p className="status-msg">{t.loadingDetails}</p>
                 </section>
             </main>
         );
@@ -54,11 +56,11 @@ export default function EventDetailPage({ events = [], loading = false }) {
         return (
             <main className="main">
                 <section className="panel event-detail-page__not-found">
-                    <h2>Event Not Found</h2>
+                    <h2>{t.eventNotFound}</h2>
                     <p>
-                        Sorry, the event with ID <strong>{id}</strong> does not exist in your list.
+                        {t.eventNotFoundMsg} <strong>{id}</strong> {t.eventNotFoundMsg2}
                     </p>
-                    <Link to="/events" className="back-link">← Return to Events</Link>
+                    <Link to="/events" className="back-link">{t.returnToEvents}</Link>
                 </section>
             </main>
         );
@@ -69,23 +71,23 @@ export default function EventDetailPage({ events = [], loading = false }) {
             <section className="panel event-detail-page">
                 <div className="event-detail-page__nav">
                     <button className="back-btn" onClick={() => navigate(-1)}>
-                        ← Back
+                        {t.backBtn}
                     </button>
-                    <Link to="/events" className="back-link">All Events</Link>
+                    <Link to="/events" className="back-link">{t.allEventsLink}</Link>
                 </div>
 
                 <div className="event-detail-page__card">
                     <div className="event-detail-page__header">
                         <StatusBadge status={event.status} />
-                        <span className="event-detail-page__id">ID: {event.id}</span>
+                        <span className="event-detail-page__id">{t.eventIdLabel} {event.id}</span>
                     </div>
 
                     <h2 className="event-detail-page__title">{event.title}</h2>
 
                     <div className="event-detail-page__info">
-                        <EventDetail label="Date" eventDetail={event.date} eventDetailType="date" />
-                        <EventDetail label="Time" eventDetail={event.time} eventDetailType="time" />
-                        <EventDetail label="Location" eventDetail={event.location} eventDetailType="location" />
+                        <EventDetail eventDetail={event.date} eventDetailType="date" />
+                        <EventDetail eventDetail={event.time} eventDetailType="time" />
+                        <EventDetail eventDetail={event.location} eventDetailType="location" />
                     </div>
                 </div>
             </section>

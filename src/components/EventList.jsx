@@ -1,6 +1,8 @@
 import EventListItem from './EventListItem.jsx';
+import { useSettings } from '../context/SettingsContext.jsx';
 
 export default function EventList({ onEventClose, openModal, events = [], filter, searchTerm }) {
+    const { t } = useSettings();
     
     // Filtering functionality
     const filteredEvents = events.filter(event => {
@@ -36,7 +38,7 @@ export default function EventList({ onEventClose, openModal, events = [], filter
                 ))}
             </ul>
             {filteredEvents.length === 0 && (
-                <p className="no-events">No events found</p>
+                <p className="no-events">{t.noEventsFound}</p>
             )}
         </div>
     );
