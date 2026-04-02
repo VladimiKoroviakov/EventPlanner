@@ -14,7 +14,8 @@ export default function Header({ openModal }) {
     return (
         <header className="header">
             <NavLink to="/" className="header__logo" end onClick={closeNav}>
-                Event Planner
+                <span className="header__logo-full">Event Planner</span>
+                <span className="header__logo-short">E-Planner</span>
             </NavLink>
 
             {/* Desktop + mobile-open nav — labels come from SettingsContext */}
