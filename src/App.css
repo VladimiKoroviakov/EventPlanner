@@ -195,7 +195,7 @@ header .buttons .lang-toggle-button:hover {
   background: var(--bg-light);
   box-shadow: var(--card-shadow);
   width: 100%;
-  max-width: 500px;  
+  max-width: 508px;
   border-radius: 24px;
   position: relative;
 }
@@ -266,6 +266,9 @@ form.event .bottom button {
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
+}
+form.event .bottom button:hover:not(:disabled) {
+  background: var(--color-secondary-hover);
 }
 form.event .event-input {
   display: flex;
